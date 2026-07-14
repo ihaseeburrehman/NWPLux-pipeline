@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Detect OS type (macOS or Linux)
+OS_TYPE=$(uname)
+
+# Ask for the start and end dates
+read -p "Please enter the start date (YYYYMMDD) e.g. 20210621: " start_date
+read -p "Please enter the end date (YYYYMMDD) e.g. 20210730: " end_date
+
+# Ask for a base output directory
+read -p "Please enter the base output directory path: " base_output_dir
+
+# Create output directory based on start and end dates
+output_dir="${base_output_dir}/${start_date}_${end_date}"
+mkdir -p "$output_dir"
+
+echo "Data will be saved in: $output_dir"
+
+# Set the forecast times
+times=("0000" "0600" "1200" "1800")
+
+# Set the number of parallel downloads
+num_parallel_downloads=8
+
+# Function to get epoch time based on OS
+get_epoch_time() {
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        date -j -f "%Y%m%d" "$1" "+%s"
+    else
+        date -d "$1" "+%s"
+    fi
+}
+
+# Function to check if data exists at a URL
+check_url() {
+    local url=$1
+    if curl --head --silent --fail "$url" > /dev/null; then
+        echo "available"
+    else
+        echo "unavailable"
+    fi
+}
+
+# Convert date to seconds since epoch for easy comparison
+start_date_epoch=$(get_epoch_time "$start_date")
+end_date_epoch=$(get_epoch_time "$end_date")
+
+# Create a temporary file for storing URLs
+temp_url_list=$(mktemp)
+
+# Loop through the dates
+current_date_epoch=$start_date_epoch
+while [ $current_date_epoch -le $end_date_epoch ]; do
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        current_date=$(date -j -f "%s" "$current_date_epoch" "+%Y%m%d")
+        current_month=$(date -j -f "%s" "$current_date_epoch" "+%Y%m")
+    else
+        current_date=$(date -d "@$current_date_epoch" "+%Y%m%d")
+        current_month=$(date -d "@$current_date_epoch" "+%Y%m")
+    fi
+
+    # Loop through the forecast times
+    for time in "${times[@]}"; do
+        file_name="gfs_4_${current_date}_${time}_006.grb2"
+        primary_url="https://www.ncei.noaa.gov/data/global-forecast-system/access/grid-004-0.5-degree/analysis/${current_month}/${current_date}/${file_name}"
+        secondary_file_name="gfsanl_3_${current_date}_${time}_000.grb2"
+        secondary_url="https://www.ncei.noaa.gov/data/global-forecast-system/access/historical/analysis/${current_month}/${current_date}/${secondary_file_name}"
+        output_path="$output_dir/$file_name"
+
+        # Check if primary URL is available
+        if [[ $(check_url "$primary_url") == "available" ]]; then
+            echo "$primary_url $output_path" >> "$temp_url_list"
+        else
+            echo "Primary data unavailable for $current_date $time, checking historical dataset..."
+            if [[ $(check_url "$secondary_url") == "available" ]]; then
+                echo "$secondary_url $output_path" >> "$temp_url_list"
+            else
+                echo "No data available for $current_date $time on either source. Skipping."
+            fi
+        fi
+    done
+
+    # Increment the current date by one day (86400 seconds)
+    current_date_epoch=$((current_date_epoch + 86400))
+done
+
+# Use xargs to handle parallel downloads
+cat "$temp_url_list" | xargs -n 2 -P "$num_parallel_downloads" bash -c 'curl -o "$1" "$0"'
+
+# Clean up temporary file
+rm -f "$temp_url_list"
+
+# Wait for all downloads to complete
+wait

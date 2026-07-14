@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.nc
+*.csv
+*.xlsx
+*.xls
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.log
+*.png
+*.jpg
+*.tif
+*.tiff
