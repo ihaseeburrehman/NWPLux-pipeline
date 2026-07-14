@@ -50,13 +50,14 @@ flowchart TD
 
 ### `01_NWP_development/04_wrf_wrfda_run/`
 
-Three Rapid Update Cycle automation scripts, corresponding to the three ways this project was run:
+Four Rapid Update Cycle automation scripts, corresponding to the environments and background-error configurations used in the project:
 
-| Script | Environment |
-|---|---|
-| `run_ruc_HPC_slurm.sh` | University of Luxembourg HPC cluster (SLURM job array, MPI across nodes) |
-| `run_ruc_local_CV3.sh` | Local workstation, no scheduler, CV3 background-error configuration |
-| `run_ruc_local_CV5.sh` | Local workstation, no scheduler, CV5 (domain-specific) background-error configuration |
+| Script | Environment | Background error |
+|---|---|---|
+| `run_ruc_HPC_CV3.sh` | University of Luxembourg HPC cluster (SLURM job array, MPI across nodes) | CV3 (global) |
+| `run_ruc_HPC_CV5.sh` | University of Luxembourg HPC cluster (SLURM job array, MPI across nodes) | CV5 (domain-specific) |
+| `run_ruc_local_CV3.sh` | Local workstation, no scheduler | CV3 (global) |
+| `run_ruc_local_CV5.sh` | Local workstation, no scheduler | CV5 (domain-specific) |
 
 ## Related archives (already published, not duplicated here)
 
