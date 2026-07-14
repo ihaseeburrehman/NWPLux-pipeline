@@ -61,10 +61,10 @@ Four Rapid Update Cycle automation scripts, corresponding to the environments an
 
 ## Related archives (already published, not duplicated here)
 
-The LISFLOOD-FP forcing conversion, CUDA solver patches, and figure-generation code specific to the two flood-simulation manuscripts are archived separately with their own DOIs:
+The code specific to two of the thesis's manuscripts is archived separately with its own DOI, rather than duplicated in this repository:
 
-- Rehman et al., *Assessing the Added Value of High-Resolution NWP for Flood Forecasting* — code archive: [10.5281/zenodo.20776731](https://doi.org/10.5281/zenodo.20776731)
-- Rehman et al., *From AI Weather Forecasts to Flood Inundation* — code archive: [10.5281/zenodo.20794937](https://doi.org/10.5281/zenodo.20794937)
+- Rehman et al., *Physics vs.\ AI in Weather Prediction* (GraphCast, AIFS, FuXi benchmark) — code archive: [10.5281/zenodo.20794937](https://doi.org/10.5281/zenodo.20794937)
+- Rehman et al., *From AI Weather Forecasts to Flood Inundation* (includes the FV1-CUDA solver patches) — code archive: [10.5281/zenodo.20776731](https://doi.org/10.5281/zenodo.20776731)
 
 ## Data availability
 
