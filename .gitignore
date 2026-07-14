@@ -4,6 +4,7 @@ __pycache__/
 *.nc
 *.csv
 *.xlsx
+!bibliometric_analysis/*.xlsx
 *.xls
 *.shp
 *.shx
