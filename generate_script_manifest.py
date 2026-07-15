@@ -70,18 +70,18 @@ def describe(path, fn):
 
 
 def collect():
+    """List ONLY the scripts actually tracked in git (i.e. published to GitHub),
+    so the manifest never includes local/untracked working files."""
+    import subprocess
+    tracked = subprocess.check_output(
+        ["git", "-C", REPO, "ls-files", "*.py", "*.sh"], text=True).splitlines()
     groups = {}
-    for dirpath, dirnames, filenames in os.walk(REPO):
-        if ".git" in dirpath.split(os.sep):
+    for rel in sorted(tracked):
+        fn = os.path.basename(rel)
+        if fn == os.path.basename(__file__):
             continue
-        for fn in sorted(filenames):
-            if not (fn.endswith(".py") or fn.endswith(".sh")):
-                continue
-            if fn == os.path.basename(__file__):
-                continue
-            rel = os.path.relpath(os.path.join(dirpath, fn), REPO)
-            top = rel.split(os.sep)[0]
-            groups.setdefault(top, []).append((rel, describe(os.path.join(dirpath, fn), fn)))
+        top = rel.split(os.sep)[0]
+        groups.setdefault(top, []).append((rel, describe(os.path.join(REPO, rel), fn)))
     return groups
 
 
