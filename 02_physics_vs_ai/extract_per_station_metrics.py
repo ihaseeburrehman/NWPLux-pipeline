@@ -3,7 +3,7 @@
 """
 Extract per-station metrics for 2016, 2018, and 2021 events.
 Reuses loaders from compare_wrf_gc_fuxi_aifs.py.
-Outputs LaTeX tables directly.
+Outputs LaTeX tables with heat-map cell coloring directly.
 """
 
 import sys
@@ -58,10 +58,28 @@ for year, cfg in C.EVENTS.items():
 
 SYS_KEYS = ["WRF", "GC", "FuXi", "AIFS"]
 
-def fmt(val):
-    if pd.isna(val) or np.isnan(val):
+def fmt_cell(v, v_min, v_max, higher_is_better=False, is_bias=False):
+    if pd.isna(v) or np.isnan(v):
         return "-"
-    return f"{val:.3f}"
+    v_val = float(v)
+    # Coloring evaluation value
+    c_val = abs(v_val) if is_bias else v_val
+    c_val = max(v_min, min(v_max, c_val))
+    x = (c_val - v_min) / (v_max - v_min) if v_max != v_min else 0.5
+    if higher_is_better:
+        x = 1.0 - x
+        
+    # Interpolate green (0.39, 1.00, 0.39) -> yellow (1.00, 1.00, 0.39) -> red (1.00, 0.39, 0.39)
+    if x <= 0.5:
+        r = 0.39 + (1.00 - 0.39) * (2 * x)
+        g = 1.00
+        b = 0.39
+    else:
+        r = 1.00
+        g = 1.00 - (1.00 - 0.39) * (2 * x - 1)
+        b = 0.39
+    
+    return f"\\cellcolor[rgb]{{{r:.2f},{g:.2f},{b:.2f}}} {v:.3f}"
 
 # Generate tables
 for year in ["2016", "2018", "2021"]:
@@ -73,7 +91,7 @@ for year in ["2016", "2018", "2021"]:
     print(r"\begin{table}[htbp]")
     print(r"\centering")
     print(r"\scriptsize")
-    print(f"\\caption{{Per-station precipitation categorical verification scores (threshold 1.0\\,mm/6\\,h) for the {year} event. $N$ indicates the number of 6-hourly verification pairs per station.}}")
+    print(f"\\caption{{Per-station precipitation categorical verification scores (threshold 1.0\\,mm/6\\,h) for the {year} event. $N$ indicates the number of 6-hourly verification pairs per station. Cells are color-coded: green represents better performance, and red represents poorer performance.}}")
     print(f"\\label{{tab:station_precip_{year}}}")
     print(r"\begin{tabular}{l c ccc ccc ccc ccc}")
     print(r"\toprule")
@@ -93,7 +111,7 @@ for year in ["2016", "2018", "2021"]:
             
         row_str = f"{stn} & {n_pairs}"
         for key in SYS_KEYS:
-            row_str += f" & {fmt(metrics[key]['POD'])} & {fmt(metrics[key]['FAR'])} & {fmt(metrics[key]['CSI'])}"
+            row_str += f" & {fmt_cell(metrics[key]['POD'], 0.4, 0.9, True)} & {fmt_cell(metrics[key]['FAR'], 0.1, 0.6, False)} & {fmt_cell(metrics[key]['CSI'], 0.2, 0.7, True)}"
         row_str += r" \\"
         print(row_str)
         
@@ -106,7 +124,7 @@ for year in ["2016", "2018", "2021"]:
     print(r"\begin{table}[htbp]")
     print(r"\centering")
     print(r"\scriptsize")
-    print(f"\\caption{{Per-station 2\\,m temperature continuous verification scores (RMSE in $^{{\circ}}$C, correlation $r$, and Bias in $^{{\circ}}$C) for the {year} event.}}")
+    print(f"\\caption{{Per-station 2\\,m temperature continuous verification scores (RMSE in $^{{\circ}}$C, correlation $r$, and Bias in $^{{\circ}}$C) for the {year} event. Cells are color-coded: green represents better performance, and red represents poorer performance.}}")
     print(f"\\label{{tab:station_temp_{year}}}")
     print(r"\begin{tabular}{l ccc ccc ccc ccc}")
     print(r"\toprule")
@@ -125,7 +143,7 @@ for year in ["2016", "2018", "2021"]:
             
         row_str = f"{stn}"
         for key in SYS_KEYS:
-            row_str += f" & {fmt(metrics[key]['RMSE'])} & {fmt(metrics[key]['Corr'])} & {fmt(metrics[key]['Bias'])}"
+            row_str += f" & {fmt_cell(metrics[key]['RMSE'], 1.0, 3.0, False)} & {fmt_cell(metrics[key]['Corr'], 0.5, 0.95, True)} & {fmt_cell(metrics[key]['Bias'], 0.0, 1.5, False, is_bias=True)}"
         row_str += r" \\"
         print(row_str)
         
