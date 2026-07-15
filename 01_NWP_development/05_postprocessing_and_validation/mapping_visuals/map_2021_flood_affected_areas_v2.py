@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 July 2021 flood-affected-areas map with WRF d01 domain overlay.
 Restyled to match wrf_domains_map.py: cream/tan land, steel-blue ocean,

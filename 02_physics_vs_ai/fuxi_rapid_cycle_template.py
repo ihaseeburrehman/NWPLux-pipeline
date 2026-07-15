@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """FuXi Rapid Update Cycle — mirrors GraphCast rapid cycle scripts.
 For each consecutive 6h ERA5 pair [t-6, t0], produces a fresh 6h forecast (t+6).
 Uses the FuXi short ONNX model from the ECMWF ai-models asset store.

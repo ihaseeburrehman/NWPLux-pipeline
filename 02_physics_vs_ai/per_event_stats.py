@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # -*- coding: utf-8 -*-
 """Per-event + pooled verification stats for WRF (After DA), GraphCast, FuXi, AIFS.
 Reuses the loaders of compare_wrf_gc_fuxi_aifs.py; prints console + LaTeX table rows."""

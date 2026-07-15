@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 WRF (ERA5 cv5, After DA) vs GraphCast vs FuXi vs AIFS — Precipitation & 2 m Temperature
 Three events: 2016, 2018, 2021  |  Stations present in ALL datasets only.

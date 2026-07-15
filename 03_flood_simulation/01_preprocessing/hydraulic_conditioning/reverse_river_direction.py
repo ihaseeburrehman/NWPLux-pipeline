@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Reverse Alzette river line direction (start from upstream)
 """

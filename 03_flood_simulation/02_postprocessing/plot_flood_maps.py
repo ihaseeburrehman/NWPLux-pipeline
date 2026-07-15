@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Flood-depth comparison maps for the WRF-vs-AI -> LISFLOOD-FP paper.
 3 timestamps (rows) x 5 forcings (cols) of simulated water depth on the 10 m

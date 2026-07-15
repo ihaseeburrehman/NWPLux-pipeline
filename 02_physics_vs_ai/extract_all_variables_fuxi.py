@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """Minimal FuXi extraction: tp + t2m only, netCDF4 + precomputed indices."""
 import glob, os
 import numpy as np

@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Extract Alzette river from merged_rivers shapefile
 Clip to DEM extent, convert to single LineString

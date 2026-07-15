@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Python script to download prepbufr files from rda.ucar.edu for 2016-07-10 to 2016-08-10 at 6-hour intervals.
 Checks if files are already downloaded and complete (matching server size), skips them, and uses retries for reliability.

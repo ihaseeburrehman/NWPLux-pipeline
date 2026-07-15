@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
+
 # Define the base output directory
 BASE_DIR=/Users/haseeb.rehman/Documents/gis4wrf/datasets/met/GFS/2016
 

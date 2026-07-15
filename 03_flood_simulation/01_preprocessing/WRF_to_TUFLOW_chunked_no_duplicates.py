@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Memory-efficient WRF to TUFLOW NetCDF converter.
 Writes each timestep immediately instead of accumulating in RAM.

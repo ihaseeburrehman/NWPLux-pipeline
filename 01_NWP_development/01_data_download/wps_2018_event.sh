@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # WPS pipeline for the 2018 event (2018-05-10 -> 2018-06-10), d01 only, ERA5.
 # Processes 3 chunks; for each chunk:
 #   ungrib pressure  (namelist_2.wps, prefix=Pressure_file)

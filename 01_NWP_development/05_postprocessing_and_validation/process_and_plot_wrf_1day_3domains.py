@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # -*- coding: utf-8 -*-
 """
 Script to process WRF data for Luxembourg stations, plot meteorological metrics, and count improved stations.

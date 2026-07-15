@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg

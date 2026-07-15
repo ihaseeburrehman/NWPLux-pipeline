@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 wrf_to_lisflood_rain.py  (102 h window)
 Convert WRF wrfout 6-hourly TOTAL precipitation (RAINC+RAINSH+RAINNC) into a

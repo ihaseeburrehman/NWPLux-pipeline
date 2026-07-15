@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Download the 4 ERA5 PL chunks that are already 'successful' on CDS,
 bypassing cdsapi (which would re-poll). Uses the asset URLs directly.

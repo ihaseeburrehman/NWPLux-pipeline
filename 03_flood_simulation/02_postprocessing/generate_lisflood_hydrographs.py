@@ -1,4 +1,10 @@
 #!/opt/homebrew/Caskroom/miniconda/base/bin/python
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 LISFLOOD Hydrograph Comparison Script
 Clean and minimal implementation

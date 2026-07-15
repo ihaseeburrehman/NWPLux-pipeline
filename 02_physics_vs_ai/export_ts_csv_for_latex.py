@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # -*- coding: utf-8 -*-
 """Export the radar/obs/WRF/AI time series (10-17 Jul 2021) as CSVs for the
 pgfplots figure in the paper (Model_vs_RADAR_vs_observed/station_*_ai.csv)."""

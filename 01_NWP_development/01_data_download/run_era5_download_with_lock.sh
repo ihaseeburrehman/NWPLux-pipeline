@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # Wrapper for the ERA5 downloader that:
 #   - prevents concurrent runs via a flock'd lockfile
 #   - wraps the python process in `caffeinate` so the Mac stays awake while it runs

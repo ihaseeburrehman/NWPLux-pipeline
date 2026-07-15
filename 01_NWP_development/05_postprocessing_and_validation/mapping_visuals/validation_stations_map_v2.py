@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Validation-stations map  —  aligned with assimilation_stations_map.py and
 wrf_domains_map.py for a consistent figure set in a two-column paper.

@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 ############################################################
 ############################################################
 #  Forecast Script

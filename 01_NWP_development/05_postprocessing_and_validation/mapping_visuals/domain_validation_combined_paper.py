@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Combined study-area figure for the "WRF vs GraphCast" paper:
   (a) WRF single domain (d01, 12 km) over Europe, in the WRF Lambert-Conformal

@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """AIFS extraction: tp + 2t at stations, netCDF4 + precomputed KD-tree indices.
 AIFS output is N320 reduced Gaussian: 1D 'values' dim with latitude/longitude vars.
 Saves CSV (built into xlsx locally, same as FuXi workflow)."""

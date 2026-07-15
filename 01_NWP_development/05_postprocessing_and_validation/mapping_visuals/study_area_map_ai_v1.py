@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Study-area map for the WRF-vs-AI -> LISFLOOD-FP paper (v1).
 Distinct look from the WRF-LISFLOOD paper: terrain+hillshade DEM, the 5 validation

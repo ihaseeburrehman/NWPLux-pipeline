@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Manning's n / land-cover roughness map for the WRF-vs-AI -> LISFLOOD-FP paper.
 Distinct from the prior paper's all-green categorical map: a smooth->rough

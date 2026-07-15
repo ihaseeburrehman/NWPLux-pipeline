@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # WPS pipeline for the 2016 event (2016-07-01 -> 2016-07-31), d01 only, ERA5.
 # Same logic as wps_2018_event.sh, different inputs/output.
 #

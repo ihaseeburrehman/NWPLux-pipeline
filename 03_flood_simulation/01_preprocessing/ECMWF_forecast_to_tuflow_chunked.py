@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 ECMWF Forecast (Fixed 6h) to TUFLOW NetCDF converter.
 Converts ECMWF 'tp' (m) to 'rainfall_depth' (mm) on 5m projected grid.

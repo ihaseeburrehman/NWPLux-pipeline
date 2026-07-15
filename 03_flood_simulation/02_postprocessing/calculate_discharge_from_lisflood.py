@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Calculate discharge and water depth at specific points from LISFLOOD output files.
 Outputs a text file with discharge and depth values for each timestep.

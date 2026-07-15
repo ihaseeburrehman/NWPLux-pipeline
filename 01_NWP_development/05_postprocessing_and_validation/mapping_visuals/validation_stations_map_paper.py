@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Validation-stations map -- refreshed aesthetic for the "WRF vs GraphCast" paper.
 Cool light-grey land / pale-blue ocean, crimson validation markers, and main

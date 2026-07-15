@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Study-area figure v3 (professor's layout):
 Main panel  : zoom on Luxembourg + Greater Region with subtle SRTM hillshade,

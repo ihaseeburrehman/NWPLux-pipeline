@@ -1,3 +1,8 @@
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 """
 Single-panel study-area figure for the "WRF vs GraphCast" paper:
 the WRF model domain (Lambert-conformal) over Europe, with the Greater Region

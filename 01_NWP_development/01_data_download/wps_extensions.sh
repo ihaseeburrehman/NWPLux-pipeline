@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# NWPLux
+# Haseeb ur Rehman
+# Funded by the Fonds National de la Recherche Luxembourg (FNR),
+# Industrial Fellowship, Project No. 17130773
+
 # WPS pipeline for the extension downloads — appends to existing
 # 2018_metgrid_files_era5/ and 2016_metgrid_files_era5/, producing
 # ONLY the in-obs-range timesteps (no waste).
