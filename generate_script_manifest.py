@@ -59,6 +59,16 @@ def humanise(fn):
     return base[:1].upper() + base[1:]
 
 
+def _clean(s):
+    """Collapse runs of 2+ dashes to a comma and strip stray leading/trailing
+    punctuation, so no em-dash-like sequences reach the LaTeX table."""
+    s = re.sub(r'\s*-{2,}\s*', ', ', s)          # long dash runs -> comma
+    s = s.strip(" ,-").strip()
+    s = re.sub(r'\s+,', ',', s)
+    s = re.sub(r',\s*,', ',', s)
+    return s
+
+
 def describe(path, fn):
     """Return a short one-line purpose for the script."""
     try:
@@ -72,7 +82,7 @@ def describe(path, fn):
         first = " ".join(m.group(1).strip().split())
         first = first.split(". ")[0]
         if first:
-            return first[:160]
+            return _clean(first)[:160]
     # otherwise first meaningful comment line that is not the attribution header
     for line in text.splitlines():
         s = line.strip().lstrip("#").strip()
@@ -82,7 +92,7 @@ def describe(path, fn):
             continue
         if s.lower().startswith(("import ", "from ", "set ", "#!")):
             break
-        return s[:160]
+        return _clean(s)[:160]
     return humanise(fn)
 
 
