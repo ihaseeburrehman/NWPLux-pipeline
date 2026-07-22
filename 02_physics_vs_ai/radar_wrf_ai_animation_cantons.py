@@ -87,6 +87,17 @@ COUNTRY_LABELS = [
     ("LUXEMBOURG", 6.13, 49.78),
 ]
 
+# For the zoomed (canton-labelled) view: no basemap border is drawn, so
+# neighbouring countries are indicated with fixed edge labels instead,
+# positioned (in axes-fraction coordinates) toward their true direction
+# relative to Luxembourg -- Belgium to the north-west, Germany to the east,
+# France to the south.
+NEIGHBOUR_EDGE_LABELS = [
+    ("BELGIUM", 0.06, 0.95),
+    ("GERMANY", 0.95, 0.55),
+    ("FRANCE",  0.50, 0.03),
+]
+
 cantons = gpd.read_file(CANTON_SHP)
 _pad = 0.03
 LUX_EXTENT = [
@@ -189,14 +200,23 @@ def make_animation(frames, vmax, levels):
 
     for ax, label in zip(axes, ROW_LABELS):
         ax.set_extent(extent, crs=proj)
-        ax.add_feature(cfeature.BORDERS,   linewidth=0.7, edgecolor="black")
-        ax.add_feature(cfeature.COASTLINE, linewidth=0.5, edgecolor="black")
-        ax.add_feature(cfeature.RIVERS,    linewidth=0.3, edgecolor="#5b8db8", alpha=0.6)
 
-        # canton boundaries on every panel
-        for geom in cantons.geometry:
-            ax.add_geometries([geom], crs=proj, facecolor="none",
-                              edgecolor="#333333", linewidth=0.9, zorder=5)
+        if MODE == "full":
+            # Greater-Region view: natural-earth borders/coastline/rivers,
+            # no canton overlay (too small to be useful at this zoom, and it
+            # visually clutters the panel).
+            ax.add_feature(cfeature.BORDERS,   linewidth=0.7, edgecolor="black")
+            ax.add_feature(cfeature.COASTLINE, linewidth=0.5, edgecolor="black")
+            ax.add_feature(cfeature.RIVERS,    linewidth=0.3, edgecolor="#5b8db8", alpha=0.6)
+        else:
+            # Zoomed Luxembourg view: skip the natural-earth country border
+            # entirely -- at this zoom its coarse resolution visibly does not
+            # line up with the (much more precise) canton shapefile boundary.
+            # Neighbouring countries are indicated with fixed edge labels
+            # instead of a mismatched border line.
+            for geom in cantons.geometry:
+                ax.add_geometries([geom], crs=proj, facecolor="none",
+                                  edgecolor="#333333", linewidth=0.9, zorder=5)
 
         gl = ax.gridlines(draw_labels=True, alpha=0.25, linewidth=0.4)
         gl.top_labels = False
@@ -211,6 +231,13 @@ def make_animation(frames, vmax, levels):
                         color="#444444", fontsize=7, fontweight="bold",
                         ha="center", va="center", alpha=0.7)
         else:
+            # Neighbouring-country direction labels, anchored to the panel
+            # edge (axes fraction) so they sit consistently around Luxembourg
+            # regardless of the data underneath.
+            for name, ax_x, ax_y in NEIGHBOUR_EDGE_LABELS:
+                ax.text(ax_x, ax_y, name, transform=ax.transAxes,
+                        color="#444444", fontsize=9, fontweight="bold",
+                        ha="center", va="center", alpha=0.85, zorder=7)
             # canton labels, auto-shrunk to fit inside each polygon
             for _, row in cantons.iterrows():
                 poly = row.geometry
