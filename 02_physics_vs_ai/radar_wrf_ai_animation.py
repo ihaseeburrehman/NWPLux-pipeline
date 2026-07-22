@@ -7,12 +7,14 @@
 
 # -*- coding: utf-8 -*-
 """
-Animated 5-panel comparison of 6-hour precipitation pattern.
+Animated 2x2-panel comparison of 6-hour precipitation pattern.
 
-Each frame: RADAR | WRF (After DA) | GraphCast | FuXi | AIFS
+Each frame, 2x2 grid:
+    RADAR              | NWPLux
+    AI Model - GraphCast | AI Model - AIFS
 Cadence: 6 hours
 Window: 2021-07-10 06 UTC -> 2021-07-17 18 UTC
-Output: ~/Desktop/For_Animation/4th_year/Miscs/radar_wrf_ai_2021_animation.mp4
+Output: ~/Python scripts/output/radar_wrf_ai_2021_animation.mp4
 
 Requires ffmpeg in PATH.
 """
@@ -40,7 +42,7 @@ import cartopy.feature as cfeature
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from radar_wrf_ai_precip_comparison import (
-    aggregate_radar_6h, wrf_6h, gc_6h, fuxi_6h, aifs_6h, radar_grid_to_latlon, make_colormap,
+    aggregate_radar_6h, wrf_6h, gc_6h, aifs_6h, radar_grid_to_latlon, make_colormap,
     LON_MIN, LON_MAX, LAT_MIN, LAT_MAX,
 )
 
@@ -55,8 +57,8 @@ FPS      = 2
 OUTPUT_DIR  = "/Users/haseeb.rehman/Python scripts/output"
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "radar_wrf_ai_2021_animation.mp4")
 
-ROW_LABELS  = ["RADAR", "WRF (After DA)", "GraphCast", "FuXi", "AIFS"]
-ROW_KEYS    = ["RAD", "WRF", "GC", "FuXi", "AIFS"]
+ROW_LABELS  = ["RADAR", "NWPLux", "AI Model - GraphCast", "AI Model - AIFS"]
+ROW_KEYS    = ["RAD", "WRF", "GC", "AIFS"]
 
 COUNTRY_LABELS = [
     ("BELGIUM",    4.9, 50.6),
@@ -88,10 +90,9 @@ def gather_all_frames(timestamps):
 
         w, w_lat, w_lon = wrf_6h(t)
         g, g_lat, g_lon = gc_6h(t)
-        f, f_lat, f_lon = fuxi_6h(t)
         a, a_lat, a_lon = aifs_6h(t)
 
-        for name, arr in zip(["WRF", "GC", "FuXi", "AIFS"], [w, g, f, a]):
+        for name, arr in zip(["WRF", "GC", "AIFS"], [w, g, a]):
             if arr is not None:
                 print(f"      {name:4s}                 max={np.nanmax(arr):6.1f}")
             else:
@@ -102,7 +103,6 @@ def gather_all_frames(timestamps):
             "RAD": (rad, r_lat, r_lon),
             "WRF": (w,    w_lat, w_lon),
             "GC":  (g,    g_lat, g_lon),
-            "FuXi":(f,    f_lat, f_lon),
             "AIFS":(a,    a_lat, a_lon),
         })
     return frames
@@ -127,10 +127,9 @@ def make_animation(frames, vmax, levels):
     norm = BoundaryNorm(levels, ncolors=cmap.N, clip=True)
     proj = ccrs.PlateCarree()
 
-    fig, axes2d = plt.subplots(2, 3, figsize=(13.8, 9.6),
+    fig, axes2d = plt.subplots(2, 2, figsize=(11.0, 9.6),
                                subplot_kw={"projection": proj})
-    axes = axes2d.ravel()[:5]          # 5 data panels
-    axes2d.ravel()[5].set_visible(False)  # unused 6th cell
+    axes = axes2d.ravel()               # 4 data panels: RADAR, NWPLux / GraphCast, AIFS
 
     for ax, label in zip(axes, ROW_LABELS):
         ax.set_extent([LON_MIN, LON_MAX, LAT_MIN, LAT_MAX], crs=proj)
@@ -149,9 +148,9 @@ def make_animation(frames, vmax, levels):
                     color="#444444", fontsize=7, fontweight="bold",
                     ha="center", va="center", alpha=0.7)
 
-    plt.subplots_adjust(left=0.05, right=0.92, top=0.90, bottom=0.05,
-                        wspace=0.08, hspace=0.16)
-    cbar_ax = fig.add_axes([0.935, 0.12, 0.014, 0.72])
+    plt.subplots_adjust(left=0.06, right=0.90, top=0.90, bottom=0.05,
+                        wspace=0.10, hspace=0.16)
+    cbar_ax = fig.add_axes([0.925, 0.12, 0.018, 0.72])
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     cbar = fig.colorbar(sm, cax=cbar_ax, extend="max")
     cbar.set_label("6-hour precipitation (mm)", fontsize=10)
@@ -160,8 +159,8 @@ def make_animation(frames, vmax, levels):
     time_text = fig.text(0.5, 0.955, "", ha="center", va="bottom",
                          fontsize=13, fontweight="bold")
 
-    contour_handles = [None] * 5
-    no_data_text    = [None] * 5
+    contour_handles = [None] * len(ROW_KEYS)
+    no_data_text    = [None] * len(ROW_KEYS)
 
     def draw_frame(i):
         fr = frames[i]
