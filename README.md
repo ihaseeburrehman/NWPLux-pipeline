@@ -73,4 +73,4 @@ No raw data are included. ERA5, GFS, PREPBUFR and GNSS ZTD are public. Radar (RM
 
 ## License
 
-MIT (see `LICENSE`).
+PolyForm Noncommercial License 1.0.0 (see `LICENSE`). The code may be used, changed and shared for research, teaching and other noncommercial purposes. Commercial use is not permitted. For commercial use, contact the author.
